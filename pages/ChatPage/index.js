@@ -2,31 +2,26 @@ import React, { useState, useEffect } from "react";
 import { Box, Text, TextField, Image, Button } from "@skynexui/components";
 import appConfig from "../config.json";
 import { createClient } from '@supabase/supabase-js';
+import { useRouter } from 'next/router';
+import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMzMDYyMywiZXhwIjoxOTU4OTA2NjIzfQ.q66bELWqYwTWn0wRXeWYCkwj2hU7WAd9Qv74OUJ5b38';
 const SUPABASE_URL = 'https://nnpuckbovqhvfiihipxh.supabase.co';
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+const getMessages = (addMessage) => {
+  return (
+    supabaseClient
+      .from('messages')
+      .on('INSERT', (res) => {
+        addMessage(res.new)
+      }) 
+      .subscribe()
+  )
+};
+
 export default function ChatPage() {
   const [messagesList, setMessagesList] = useState([]);
-  const [message, setMessage] = useState('');
-  const handleNewMessage = (newMessage) => {
-    const msg = {
-      // id: messagesList.length + 1,
-      from: 'Alguém',
-      text: newMessage
-    };
-    supabaseClient 
-      .from('messages')
-      .insert([msg])
-      .then(({data}) => {
-        setMessagesList([
-          data[0],
-          ...messagesList,
-        ]);
-      });
-    setMessage('');
-  };
   useEffect(() => {
     const supabaseDB = supabaseClient
       .from('messages')
@@ -35,7 +30,31 @@ export default function ChatPage() {
       .then(({data}) => {
         setMessagesList(data)
       });
+      getMessages((newMessage) => {
+        setMessagesList((currentValueList) => {
+          return [
+            newMessage,
+            ...currentValueList
+          ]
+        })
+      });
   }, []);
+  const [message, setMessage] = useState('');
+  const router = useRouter();
+  const loggedUser = router.query.username;
+  const handleNewMessage = (newMessage) => {
+    const msg = {
+      from: loggedUser,
+      text: newMessage
+    };
+    supabaseClient 
+      .from('messages')
+      .insert([msg])
+      .then(({data}) => {
+        
+      })
+    setMessage('');
+  };
   return (
     <Box
       styleSheet={{
@@ -107,12 +126,17 @@ export default function ChatPage() {
                 color: appConfig.theme.colors.neutrals[200],
               }}
             />
+            <ButtonSendSticker 
+              onStickerClick={(sticker) => {
+                handleNewMessage(`:sticker:${sticker}`);
+              }}
+            />
           </Box>
         </Box>
       </Box>
     </Box>
   );
-}
+};
 
 function Header() {
   return (
@@ -138,7 +162,7 @@ function Header() {
   );
 }
 
-function MessageList(props) {
+function MessagesList(props) {
   return (
     <Box
       tag="ul"
@@ -191,7 +215,10 @@ function MessageList(props) {
               {new Date().toLocaleDateString()}
             </Text>
           </Box>
-          {message.text}
+          {message.text.startsWith(':sticker:') 
+            ? <Image src={message.text.replace(':sticker:', '')}/>
+            : (message.text)
+          }
         </Text>
       ))}
     </Box>
