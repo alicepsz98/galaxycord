@@ -23,7 +23,7 @@
 
 ---
 
-![Mockup]()
+![Mockup](https://github.com/alicepsz98/galaxycord/blob/main/galaxycord-mockup.mp4)
 
 ---
 
