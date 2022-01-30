@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Button, Text, Image } from '@skynexui/components';
 import appConfig from '../../config.json';
 
 export function ButtonSticker(props) {
-  const [isOpen, setOpenState] = useState('');
+  const [isOpen, setOpenState] = React.useState('');
+
   return (
     <Box
       styleSheet={{
@@ -67,12 +68,13 @@ export function ButtonSticker(props) {
               justifyContent: 'space-between',
               flex: 1,
               paddingTop: '16px',
-              overflow: 'scroll',
+              overflowY: 'scroll',
             }}
           >
             {appConfig.stickers.map((sticker) => (
               <Text
                 onClick={() => {
+                  // console.log('[DENTRO DO COMPONENTE] Clicou no sticker:', sticker);
                   if (Boolean(props.onStickerClick)) {
                     props.onStickerClick(sticker);
                   }
@@ -95,7 +97,7 @@ export function ButtonSticker(props) {
             ))}
           </Box>
         </Box>
-      )} 
+      )}
     </Box>
   )
 };

@@ -1,5 +1,5 @@
 {
-  "name": "aluracord",
+  "name": "galaxycord",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -1,66 +1,80 @@
 import React from 'react';
-import { Box, Text, Image } from "@skynexui/components";
-import appConfig from "../../config.json";
+import appConfig from '../../config.json';
+import { Box, Text, Image } from '@skynexui/components';
 
 export function MessagesList(props) {
   return (
     <Box
       tag="ul"
       styleSheet={{
-        overflow: "hidden",
-        display: "flex",
-        flexDirection: "column-reverse",
+        overflowY: 'auto',
+        scrollbarCollor: 'dark',
+        display: 'flex',
+        flexDirection: 'column-reverse',
         flex: 1,
         color: appConfig.theme.colors.neutrals["000"],
-        marginBottom: "16px",
+        marginBottom: '16px',
       }}
     >
-      {props.messagesList.map(message => (
-        <Text
-          key={message.id}
-          tag="li"
-          styleSheet={{
-            borderRadius: "5px",
-            padding: "6px",
-            marginBottom: "12px",
-            hover: {
-              backgroundColor: appConfig.theme.colors.neutrals[700],
-            },
-          }}
-        >
-          <Box
+      {props.messages && props.messages.map((message) => {
+        return (
+          <Text
+            tag="li"
             styleSheet={{
-              marginBottom: "8px",
+              borderRadius: '5px',
+              padding: '6px',
+              marginBottom: '12px',
+              hover: {
+                backgroundColor: appConfig.theme.colors.neutrals[700],
+              }
             }}
           >
-            <Image
+            <Box
               styleSheet={{
-                width: "20px",
-                height: "20px",
-                borderRadius: "50%",
-                display: "inline-block",
-                marginRight: "8px",
+                marginBottom: '8px',
+                display: "flex",
+                alignItems: "center",
               }}
-              src={`https://github.com/${message.from}.png`}
-            />
-            <Text tag="strong">{message.from}</Text>
-            <Text
-              styleSheet={{
-                fontSize: "10px",
-                marginLeft: "8px",
-                color: appConfig.theme.colors.neutrals[300],
-              }}
-              tag="span"
             >
-              {new Date().toLocaleDateString()}
-            </Text>
-          </Box>
-          {message.text.startsWith(':sticker:') 
-            ? <Image src={message.text.replace(':sticker:', '')}/>
-            : (message.text)
-          }
-        </Text>
-      ))}
+              <Image
+                styleSheet={{
+                  width: '25px',
+                  height: '25px',
+                  borderRadius: '50%',
+                  display: 'inline-block',
+                  marginRight: '8px',
+                }}
+                src={`https://github.com/${props.loggedUser}.png`}
+              />
+              <Text
+                tag="p"
+                styleSheet={{ color: "#c7b0cc" }}
+              >
+                {props.loggedUser}
+              </Text>
+              <Text
+                styleSheet={{
+                  fontSize: '10px',
+                  marginLeft: '8px',
+                  color: appConfig.theme.colors.neutrals[300],
+                }}
+                tag="span"
+              >
+                {(new Date().toLocaleDateString())}
+              </Text>
+            </Box>
+            {message.startsWith(':sticker:')
+              ? <img
+                src={message.replace(':sticker:', '')}
+                style={{
+                  width: 180
+                }}
+              />
+              : message
+            }
+          </Text>
+        );
+      })}
     </Box>
   );
 };

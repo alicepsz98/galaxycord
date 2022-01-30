@@ -36,8 +36,8 @@ function MyApp({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <Head>
-        <title>Aluracord</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Galaxycord</title>
+        <link rel="icon" href="https://th.bing.com/th/id/R.353769621c0d0821cc759854eb517c2e?rik=Ll4vRHFxF1dUNA&pid=ImgRaw&r=0" />
       </Head>
       <Component {...pageProps} />
     </>

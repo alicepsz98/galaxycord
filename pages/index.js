@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Box, Button, Text, TextField, Image } from "@skynexui/components";
-import { useRouter } from "next/router";
-import appConfig from "../config.json";
+import React from 'react';
+import { useRouter } from 'next/router';
+import { Box, Button, Text, TextField, Image } from '@skynexui/components';
+import appConfig from '../config.json';
 
-export default function HomePage() {
-  const [username, setUsername] = useState('');
+export default function PaginaInicial() {
+  const [username, setUsername] = React.useState('');
   const router = useRouter();
   return (
     <>
@@ -14,7 +14,7 @@ export default function HomePage() {
           alignItems: 'center', 
           justifyContent: 'center',
           backgroundColor: appConfig.theme.colors.primary[500],
-          backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
+          backgroundImage: 'url(https://vignette.wikia.nocookie.net/animal-jam-clans-1/images/b/bd/Blue-galaxy-gif-sky-Favim.com-5044543.gif/revision/latest?cb=20180302221226)',
           backgroundRepeat: 'no-repeat', 
           backgroundSize: 'cover', 
           backgroundBlendMode: 'multiply',
@@ -35,7 +35,7 @@ export default function HomePage() {
             padding: '32px', 
             margin: '16px',
             boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-            backgroundColor: appConfig.theme.colors.neutrals[700],
+            backgroundColor: "#99212931",
           }}
         >
           <Box
@@ -55,12 +55,12 @@ export default function HomePage() {
               marginBottom: '32px',
             }}
           >
-            <h2>Boas-vindas de volta!</h2>
+            <h2>Galaxyc✩rd</h2>
             <style jsx>{`
               h2 {
-                color: ${appConfig.theme.colors.neutrals["000"]};
-                font-size: 24px;
-                font-weight: 600;
+                color: ${appConfig.theme.colors.neutrals['000']};
+                font-size: 28px;
+                font-weight: 500;
               }
             `}</style>
             <Text 
@@ -70,11 +70,13 @@ export default function HomePage() {
                 color: appConfig.theme.colors.neutrals[300] 
               }}
             >
-              {appConfig.name}
+              Boas-vindas de volta!
             </Text>
             <TextField
+              required
               value={username}
               onChange={e => setUsername(e.target.value)}
+              placeholder="Seu nome de usuário do github..."
               fullWidth
               textFieldColors={{
                 neutral: {
@@ -91,9 +93,8 @@ export default function HomePage() {
               fullWidth
               buttonColors={{
                 contrastColor: appConfig.theme.colors.neutrals["000"],
-                mainColor: appConfig.theme.colors.primary[500],
-                mainColorLight: appConfig.theme.colors.primary[400],
-                mainColorStrong: appConfig.theme.colors.primary[600],
+                mainColor:"#4269e1",
+                mainColorStrong: "#00f",
               }}
             />
           </Box>
@@ -117,7 +118,10 @@ export default function HomePage() {
                 borderRadius: '50%',
                 marginBottom: '16px',
               }}
-              src={`https://github.com/${username}.png`}
+              src={username 
+                ? `https://github.com/${username}.png`
+                : 'https://th.bing.com/th/id/R.36cc8ff2efe66a043fc97b383fc11f23?rik=xljQ8hSZp9YS2w&pid=ImgRaw&r=0'
+              }
             />
             <Text
               variant="body4"
@@ -128,7 +132,10 @@ export default function HomePage() {
                 borderRadius: '1000px'
               }}
             >
-              {username}
+              {username
+                ? username
+                : 'gatinho_do_github'
+              }
             </Text>
           </Box>
         </Box>
