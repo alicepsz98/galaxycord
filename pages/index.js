@@ -11,10 +11,13 @@ export default function HomePage() {
       <Box
         styleSheet={{
           display: 'flex', 
-          alignItems: 'center', justifyContent: 'center',
+          alignItems: 'center', 
+          justifyContent: 'center',
           backgroundColor: appConfig.theme.colors.primary[500],
           backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
-          backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
+          backgroundRepeat: 'no-repeat', 
+          backgroundSize: 'cover', 
+          backgroundBlendMode: 'multiply',
         }}
       >
         <Box
@@ -52,7 +55,14 @@ export default function HomePage() {
               marginBottom: '32px',
             }}
           >
-            <h2>Boas vindas de volta!</h2>
+            <h2>Boas-vindas de volta!</h2>
+            <style jsx>{`
+              h2 {
+                color: ${appConfig.theme.colors.neutrals["000"]};
+                font-size: 24px;
+                font-weight: 600;
+              }
+            `}</style>
             <Text 
               variant="body3" 
               styleSheet={{ 
@@ -120,13 +130,6 @@ export default function HomePage() {
             >
               {username}
             </Text>
-            <style jsx>{`
-              h2 {
-                color: ${appConfig.theme.colors.neutrals["000"]};
-                font-size: 24px;
-                font-weight: 600;
-              }
-            `}</style>
           </Box>
         </Box>
       </Box>

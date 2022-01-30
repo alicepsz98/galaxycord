@@ -1,5 +1,5 @@
 {
-  "name": "instacord",
+  "name": "aluracord",
   "private": true,
   "scripts": {
     "dev": "next dev",

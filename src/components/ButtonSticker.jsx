@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Button, Text, Image } from '@skynexui/components';
 import appConfig from '../../config.json';
 
-export function ButtonSendSticker(props) {
+export function ButtonSticker(props) {
   const [isOpen, setOpenState] = useState('');
   return (
     <Box
@@ -95,7 +95,7 @@ export function ButtonSendSticker(props) {
             ))}
           </Box>
         </Box>
-      )}
+      )} 
     </Box>
   )
 };
